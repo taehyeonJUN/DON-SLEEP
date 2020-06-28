@@ -1,4 +1,4 @@
-package dynamic_beat_02;
+package dynamic_beat_03;
 
 import java.awt.*;
 
@@ -22,7 +22,9 @@ public class DynamicBeat extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//게임창 종료시 게임프로그램 전체 종료
 		setVisible(true);//만들어진 프로그램이 정상적으로 화면 송출되게 함. 기본값이 false임
 		
-		bag= new ImageIcon(Main.class.getResource("../dynamic_beat_02/images/bag.png")).getImage();
+		bag= new ImageIcon(Main.class.getResource("../dynamic_beat_03/images/bag.png")).getImage();
+		Music introMusic = new Music("intro.mp3", true); //시작화면 음악 무한 재생
+		introMusic.start();
 	}
 	public void paint (Graphics g) {
 		screenImage = createImage(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);//설정한 크기의 이미지를 만들어 변수에 넣어줌
