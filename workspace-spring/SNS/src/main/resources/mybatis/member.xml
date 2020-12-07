@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	
+
+
+<select id="loginList" resultType="Member" parameterType="Member">
+	SELECT *
+	FROM member
+	WHERE MEM_ID=#{memId} and MEM_PASS=#{memPass}
+</select>
+	
+<insert id="add">
+ 	INSERT INTO member(MEM_ID,MEM_PASS,MEM_NAME,MEM_TEL,MEM_DATE)
+ 	VALUES(#{memId},#{memPass},#{memName},#{memTel},SYSDATE)
+</insert>
+
+<select id="list" resultType="Member" parameterType="Member">
+	SELECT*
+	FROM member
+</select>
+
+<select id="selectList" resultType="Member" parameterType="Member">
+	SELECT *
+	FROM member
+	WHERE MEM_ID=#{memId}
+</select>
+
+
+<update id="update">
+	UPDATE MEMBER SET MEM_NAME=#{memName}, MEM_PASS=#{memPass}, MEM_TEL=#{memTel},MEM_INTRO=#{memIntro}
+	WHERE MEM_ID=#{memId}
+</update>
+
+
+<delete id="delete">
+	DELETE FROM MEMBER WHERE MEM_ID=#{memId}
+</delete>
+
+<select id="checkId" resultType="Integer">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEM_ID = #{memId}
+</select>
+
+
+</mapper>

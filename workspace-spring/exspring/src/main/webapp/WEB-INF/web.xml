@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- The definition of the Root Spring Container shared by all Servlets 
+		and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+
+	<!--웹 어플리케이션이 처음 시작할 때 실행되는 리스너 -->
+	<!-- /WEB-INF/spring/appServlet/servlet-context.xml 설정파일의 내용에 따라서 스프링 객체 
+		컨테이너를 생성 -->
+	<!-- DispatcherServlet이 생성한 객체 컨테이너의 부모 컨테이너로서 작동 -->
+	<!-- 다수의 DispatcherServlet들이 함꼐 공유하는 객체들을 등록할 때 사용 -->
+	<!--객체 컨테이너를 생성 Creates the Spring Container shared by all Servlets and 
+		Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<!-- Processes application requests -->
+
+	<!-- *.do로 끝나는 주소로 요청이 오면 DispatcherServlet 실행 -->
+	<!-- DispatcherServlet은 스프링의 본체로, 서블릿의 역할과 객체 컨테이너의 역할을 실행 -->
+	<!-- /WEB-INF/spring/appServlet/servlet-context.xml 설정파일의 내용대로 객체를 생성하여 
+		사용 -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+		<!-- *.do로 끝나는 주소로 요청이 오면 DispatcherServlet 실행 -->
+	</servlet-mapping>
+
+	<!-- 국제화 utf8설정 -->
+<!-- 	post방식으로 전송되는 한글 파라미터 값을 위한 인코딩필터 등록 -->
+	<filter>
+		<filter-name>encoding-filter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding-filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+
+</web-app>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<!-- CSS only -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+
+
+
+<script>
+       let state={order:1};//최상위에 선언함으로써 어디서나 사용할 수 있도록 함
+        $(function(){
+        	
+            $(".add").click(event=>{
+
+                $("#addModal").modal("toggle");
+            });
+            $("#addSubmit").click(event=>{
+                $("#addModal").modal("toggle");
+
+                let item = {
+                    //#의 자손 클래스에서 값을 가져오고  val은 값을 가져오는 메소드
+                        //.val()은 값을 읽어오는 getter ()안에 값이 있다면 setter
+                        bookid: $("#addModal .bookid").val(),
+                        bookname: $("#addModal .bookname").val(),
+                        publisher:$("#addModal .publisher").val(),
+                        price:$("#addModal .price").val(),
+                    
+                }
+
+                $.ajax({
+                    type: "PUT",
+                    url: "/api",
+                    data: JSON.stringify(item),
+                    contentType: "application/json",
+                    success: function(data){
+                        alert("등록 성공");
+
+                        let html ="<tr data-bookid='"+item.bookid +"'><td>"+ item.bookid+"</td>";
+                        html += "<td>"+ item.bookname +"</td>";
+                        html += "<td>"+item.publisher+"</td>";
+                        html += "<td>"+ item.price+"</td>";
+                        html += "<td><button data-bookid='"+item.bookid +"' class='delete btn btn-sm btn-danger'>삭제</button>";
+                        html +="<button data-bookid='"+item.bookid +"'  class='update btn btn-sm btn-info'>변경</button></td>";
+    
+                        html += "</tr>";
+
+
+                        $("tbody").prepend(html);
+                        //어펜드는 마지막에 프리펜드는 앞에 삽입
+
+                    },
+
+                    error: function(){
+                        alert("등록 실패");
+                    }
+                });
+            });
+            $("tbody").on("click",".delete",function(event) {
+                let bookid = $(this).data("bookid"); //data-bookid
+                $.ajax({
+
+                    type: "DELETE",
+                    url: "/api",
+                    data: JSON.stringify({
+                        bookid:bookid
+                    }),
+                    contentType:"application/json",
+                    success:function(data,status,xhr){
+                        alert("삭제성공"+status);
+
+                        $(".delete[data-bookid="+bookid+"]").parent().parent().remove();
+                        //delete 속성이 있는것을 찾아 버튼의 부모 td그 부모 tr찾아서 삭제
+
+                    },
+                    error:function(xhr,status,err){
+                        alert("삭제실패"+status);
+                    }
+                });
+            });
+            $("tbody").on("click", ".update", function(event) {
+                // alert('변경');
+                // $("#updateModal").modal("toggle");
+                let row = $(this).parent().parent();
+                
+                let item ={
+                    bookid : row.children(":nth-child(1)").text(),
+                    bookname : row.children(":nth-child(2)").text(),
+                    publisher : row.children(":nth-child(3)").text(),
+                    price : row.children(":nth-child(4)").text()
+
+                };
+                
+                $("#updateModal .bookid").val(item.bookid);
+                $("#updateModal .bookname").val(item.bookname);
+                $("#updateModal .publisher").val(item.publisher);
+                $("#updateModal .price").val(item.price);
+
+                $("#updateModal").modal("toggle");
+            });
+
+            $(".updateSubmit").click(event=>{
+                $("#updateModal").modal("toggle");
+
+                let item = {
+                    bookid : $("#updateModal .bookid").val(),
+                    bookname : $("#updateModal .bookname").val(),
+                    publisher : $("#updateModal .publisher").val(),
+                    price : $("#updateModal .price").val(),
+                };
+
+                $.ajax({
+                    type : "PATCH",
+                    url : "/api",
+                    data: JSON.stringify(item),
+                    contentType : "application/json",
+                    success:function(data){
+                        
+
+                        let row =$("tr[data-bookid="+item.bookid+"]");
+                        row.children(":nth-child(1)").text(item.bookid);
+                        row.children(":nth-child(2)").text(item.bookname);
+                        row.children(":nth-child(3)").text(item.publisher);
+                        row.children(":nth-child(4)").text(item.price);
+                        alert("변경성공")
+                    },
+                    error : function(){
+                        alert("실패")
+                    }
+                });
+
+                });
+            
+                ajax(1);
+                
+                $("#page-first").click(function(){
+                    ajax(1);
+                });
+                
+                $("#page-prev").click(function(){
+                    ajax($(this).data("page")); //data-page
+                });
+                
+                $("#page-next").click(function(){
+                    ajax($(this).data("page"));
+                });
+                
+                $("#page-last").click(function(){
+                    ajax($(this).data("page"));
+                });
+                $("#submit").click(function(){
+                    state.search= $("#search option:selected").val();
+                    state.keyword= $("#keyword").val();
+                    
+	                   ajax(1);
+                });
+            })
+// []는 배열  {}는 객체를 나타냄
+// {} == new 객체 와 동의
+          	function ajax(page){
+				let data = {page: page};
+		
+				for(let key in state)
+					data[key] = state[key];
+		
+				console.log(data);
+				
+            $.ajax({
+                async : true,
+                type: "POST",
+                url:"/api",
+                dataType : "json",
+                data: JSON.stringify(data),
+                contentType : "application/json;",
+                success:function(data, status, xhr){
+                //   비동기화 방식?  
+                     alert("ajax 완료")
+                     console.log(data);
+            
+                     display(data.list);
+                     //리스트와 페이저를 합친 객체가 있기에 여기에세 도서 목록을 지정함
+                     
+                     $("#page-first").data("page", 1);
+                     $("#page-prev").data("page", data.pager.prev);
+                     $("#page-next").data("page",data.pager.next);
+                     $("#page-last").data("page",data.pager.last);
+                     
+                     
+                     $(".page-remove").remove(); //페이지 이동하며 기존 페이지 삭제
+                     for(let index=0; index < data.pager.list.length; index++){
+//                       html에 li안에 button을 붙여넣는다.
+                      let html = '<li class="page-remove page-item ';
+                      if(data.pager.list[index] == page)
+                      html += 'active';
+                      //엑티브는 현재 페이지 강조표시
+                      html +='"><button class="page-link" data-page="';
+                      html += data.pager.list[index];
+                      html += '">'
+                      html += data.pager.list[index];
+                      html += '</button></li>'; 
+//                   li와 button이 붙여진 html을  #page-next(다음)에 순서대로 붙여넣는다.(?)                   
+                      $("#page-next").parent().before( $(html) );
+                   
+                   }
+                     $(".page-remove .page-link").click(function() {
+                    	 ajax($(this).data("page"));
+					})
+                     //페이지 리무브 클래스를 찾아 자손클래스를 찾아서 
+                     
+                },
+                error: function(xhr, status, error){
+                    alert("ajax실패")
+                }
+            });
+        }
+        
+        
+        function display(list){
+            let html = "";
+            for(let index=0; index<list.length; index++){
+                html += "<tr data-bookid='"+list[index].bookid +"'>"
+                 
+                html += "<td>" +list[index].bookid+"</td>";
+                html += "<td>" +list[index].bookname+"</td>";
+                html += "<td>" +list[index].publisher+"</td>";
+                html += "<td>" +list[index].price+"</td>";
+                html +="<td><button data-bookid='"+list[index].bookid +"' class='delete btn btn-sm btn-danger'>삭제</button>"
+                html +="<button data-bookid='"+list[index].bookid +"'  class='update btn btn-sm btn-info'>변경</button></td>"
+               
+                html += "</tr>"
+            }
+            $("tbody").html(html);
+
+        }
+    </script>
+
+</head>
+<body>
+
+	<div class="container-fluid">
+		<div class="form-group row">
+			<span class="col-4"></span>
+			<!--          	col-4 는 그리드로 분할한 크기 -->
+			<span class="col-3"> 
+			<select id="search"class="form-control">
+					<option value="0">선택</option>
+					<option value="1">도서번호</option>
+					<option value="2">도서명</option>
+					<option value="3">출판사</option>
+					<option value="4">가격</option>
+			</select>
+			</span> 
+			<span class="col-4"> 
+				<input type="text" id="keyword"placeholder="검색어를 입력해 주세요" class="form-control">
+			</span> 
+			<span class= "col"> 
+				<input id="submit" value="검색" class="btn btn-primary btn-sm btn-block">
+			</span>
+
+
+		</div>
+	</div>
+
+		<table border="1" class="table table-sm table-hover">
+			<thead class="thead-sm thead-dark">
+				<tr>
+					<th>도서번호</th>
+					<th>도서명</th>
+					<th>출판사</th>
+					<th>가격</th>
+					<th>관리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="5">등록된 도서가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<ul class="pagination pagination-sm justify-content-center">
+				<!--             data- = 값을 저장하고 싶을떄 사용하는 태그 -->
+				<!--          	자바스크립트에서 data로 일괄로 읽어올 수 있음 -->
+				<li class="page-item">
+					<button id="page-fisrt" class="page-link">처음</button>
+				</li>
+				<li class="page-item">
+					<button id="page-prev" class="page-link">이전</button>
+				</li>
+				<li class="page-item">
+					<button id="page-next" class="page-link">다음</button>
+				</li>
+				<li class="page-item">
+					<button id="page-last" class="page-link">마지막</button>
+				</li>
+
+			</ul>
+
+			<div>
+				<button class="add btn btn-sm btn-primary">등록</button>
+			</div>
+		</div>
+
+
+		<!--[시작] 등록 Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1"
+			aria-labelledby="addModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalTitle">도서 등록</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>도서번호 :</label> <input type="number"
+								class="bookid form-control">
+						</div>
+						<div class="form-group">
+							<label>도서명 :</label> <input type="text"
+								class="bookname form-control">
+						</div>
+						<div class="form-group">
+							<label>출판사 : </label> <input type="text"
+								class="publisher form-control">
+						</div>
+						<div class="form-group">
+							<label>가격 : </label> <input type="number"
+								class="price form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
+						<button type="button" id="addSubmit" class="btn btn-primary">등록</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- [종료] 등록 Modal -->
+
+		<!--[시작] 변경 Modal -->
+		<div class="modal fade" id="updateModal" tabindex="-1"
+			aria-labelledby="updateModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalTitle">도서 정보 변경</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>도서번호 :</label> <input type="number"
+								class="bookid form-control" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>도서명 :</label> <input type="text"
+								class="bookname form-control">
+						</div>
+						<div class="form-group">
+							<label>출판사 : </label> <input type="text"
+								class="publisher form-control">
+						</div>
+						<div class="form-group">
+							<label>가격 : </label> <input type="number"
+								class="price form-control">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
+						<button type="button" id="updateSumit"
+							class="updateSubmit btn btn-primary">변경</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- [종료] 변경 Modal -->
+</body>
+</html>

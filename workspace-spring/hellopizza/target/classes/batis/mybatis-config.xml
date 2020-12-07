@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<settings>
+<!-- 	_표기법을 사용한 컬럼이름을 낙타표기법을 사용한 자바 변수이름과 맵핑하는 기능 -->
+  <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+  
+<typeAliases>
+<!-- 	마이바티스 설정 파일에서 kr.ac.kopo.member.MemberVo를 MemberVo로 줄여서 사용  -->
+	<typeAlias type="hi.pizza.world.member.MemberVo" alias="MemberVo"/>
+	<typeAlias type="hi.pizza.world.student.StudentVo" alias="StudentVo"/>
+	<typeAlias type="hi.pizza.world.board.BoardVo" alias="BoardVo"/>
+	<typeAlias type="hi.pizza.world.comment.CommentVo" alias="CommentVo"/>
+	<typeAlias type="hi.pizza.world.pizzamenu.PizzaMenuVo" alias="PizzaMenuVo"/>
+	<typeAlias type="hi.pizza.world.pizzaorder.PizzaOrderVo" alias="PizzaOrderVo"/>
+
+<package name="hi.pizza.world"/>
+<!-- 	package 태그를 사용하여 kr.ac.kopo 패키지(폴더)  -->
+<!-- 	하위에 있는 모든 클래스에 대한 별명을 자동 등록 가능  -->
+<!-- 	<package name="kr.ac.kopo"/> -->
+</typeAliases>  
+
+
+  <environments default="development">
+<!--   	마이바티스를 통해서 사용하려는 데이터베이스 환경(접속정보)을 설정 -->
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+<!--       	property의 각 value에 DB 정보를 입력 -->
+        <property name="driver" value="oracle.jdbc.OracleDriver"/> 
+        <property name="url" value="jdbc:oracle:thin:database-1.c7ma6y4ooqbt.us-east-2.rds.amazonaws.com:1521:orcl"/>
+        <property name="username" value="admin"/>
+        <property name="password" value="a123456789"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+<!--   	마이바티스를 통해서 실행한 SQL문들을 정의한 XML 파일 등록 -->
+    <mapper resource="/batis/mapper/MemberMapper.xml"/>
+    <mapper resource="/batis/mapper/StudentMapper.xml"/>
+     <mapper resource="/batis/mapper/PizzaBoardMapper.xml"/>
+    <mapper resource="/batis/mapper/PizzaCommentMapper.xml"/>
+    <mapper resource="/batis/mapper/PizzaMenuMapper.xml"/>
+    <mapper resource="/batis/mapper/PizzaOrderMapper.xml"/>
+  </mappers>
+</configuration>

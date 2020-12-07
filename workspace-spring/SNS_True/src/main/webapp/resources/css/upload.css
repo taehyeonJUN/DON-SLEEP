@@ -1,0 +1,71 @@
+/* 바텀 카피라이트 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* 메뉴, 네비게이션 js 부분 */
+/* .nav-btn.active {display: flex;}
+.delete-btn.nav-btn.active {display: flex;} */
+
+/* 미드(헤드) 시작, upload-box 시작 */
+.mid-contaniner {width: 100%; margin-top: 150px;}
+.mid-wrap {max-width: 700px; margin: 0 auto; }
+.mid-head {border: 1px solid #d3d3d3;  margin: 0 auto; padding: 30px 30px 60px 30px;}
+.upload-box {
+    background: rgb(245, 233, 204);
+    max-width: 401px;
+    height: 200px;
+    margin: 0 auto;
+    border: 1px solid gray;
+    text-align: center;
+    font-size: 24px;
+}
+
+.upload-box img {
+    /* padding-top: 125px;
+    padding-left: 50px; */
+    width: 60px;
+    display : block;
+    margin : 0 auto;
+    padding-top: 70px;      
+}
+
+.upload-box a:hover {
+    color: firebrick;
+    font-weight: 900;
+    
+}
+
+.text-box {
+    max-width: 400px;
+    padding-left: 118px;
+    padding-bottom: 18px;
+}
+.text-box textarea {
+    resize: none;
+}
+
+.mid-head h3 {
+    margin-top: 20px;
+}
+/* 미드 취소 전송 버튼 */
+.mid-btn {
+    float: right;
+    /* padding-right: 99px; */
+    margin-top: 4px;
+}
+.cancle-btn {
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.upload-btn {
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: dodgerblue;
+}
+
+/* 바텀 bottom 시작 카피라이트 */
+.bottom-contaniner{width: 100%}
+.bottom-wrap{max-width: 700px; margin: 0 auto; margin-top: 80px;}
+.bottom{text-align: center;}
+.bottom h5 {color: gray; font-family: 'Nanum Gothic', sans-serif;}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+
+<settings>
+<!-- 	_ 표기법을 사용한 컬럼 이름을 낙타표기법으로 사용한 자바 변수 이름과 매핑하는 기능 -->
+  <setting name="mapUnderscoreToCamelCase" value="true" />
+
+</settings>
+
+
+<typeAliases>
+<!-- 마이바티스 설정파일에서 kr.ac.kopo.member.MemberVo를 MemberVo로 줄여서 사용 -->
+  <typeAlias type="kr.ac.kopo.member.MemberVo" alias="MemberVo"/>
+  <typeAlias type="kr.ac.kopo.bbs0612.BbsVo" alias="BbsVo"/>
+  <typeAlias type="kr.ac.kopo.bbs0612.AttachVo" alias="AttachVo"/>
+  <typeAlias type="kr.ac.kopo.reply.ReplyVo" alias="ReplyVo"/>
+<!--   package태그를 이용하여 kr.ac.kopo 패키지(폴더) 하위에 있는 모든 클래스에 대한 자동 등록 가능
+지금의 경우 공통 경로를 제외한 이름이 등록됨 but필요한 불필요한 클래스까지 등록됨 -->
+<package name="kr.ac.kopo"/>
+</typeAliases>
+
+
+
+
+
+  <environments default="development">
+<!--   마이바티스를 통해서 사용하려는 데이터베이스 환경(접속정보)를 설정  -->
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+      
+      
+<!--       property의  각 value에 db정보를 입력 -->
+        <property name="driver" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="com"/>
+        <property name="password" value="com01"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+<!--   마이바티스를 통해서 실행할 SQL문을 정의한 XML파일 등록 -->
+  <mappers>
+    <mapper resource="batis/mapper/MemberMapper.xml"/>
+    <mapper resource="batis/mapper/BbsMapper.xml"/>
+    <mapper resource="batis/mapper/StuMapper.xml"/>
+    <mapper resource="batis/mapper/AttachMapper.xml"/>
+    <mapper resource="batis/mapper/ReplyMapper.xml"/>
+
+  </mappers>
+</configuration>

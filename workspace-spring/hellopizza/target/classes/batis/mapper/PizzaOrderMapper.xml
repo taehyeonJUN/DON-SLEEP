@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hi.pizza.world.pizzaorder.PizzaOrderDao">
+
+<!-- 	********주문****** -->
+	<resultMap type="PizzaOrderVo" id="PizzaOrMap">
+	<id property="orId" column="OR_ID" />
+	<result property="orUser" column="OR_USER"/>
+	<result property="orUname" column="OR_UNAME"/>
+	<result property="orUpn" column="OR_UPN"/>
+	<result property="orUad" column="OR_UAD"/>
+	<result property="orPrice" column="OR_PRICE"/>
+	<result property="orPay" column="OR_PAY"/>
+</resultMap>
+	
+	<resultMap type="PizzaOrderVo" id="PizzaLiMap">
+	<id property="liId" column="LI_ID"/>
+	<result property="liUser" column="LI_USER"/>
+	<result property="liMeid" column="LI_MEID"/>
+	<result property="liMeprice" column="LI_MEPRICE"/>
+	<result property="liEa" column="LI_EA"/>
+	<result property="liOrNum" column="LI_OR_NUM"/>
+	<result property="liMename" column="LI_MENAME"/>
+	
+<!-- 	<collection property="seletList" ofType="PizzaMenuVo"> -->
+<!-- 			<result property="meId" column="ME_ID" /> -->
+<!-- 		</collection> -->
+	</resultMap>
+
+	<select id="selectOrder" resultType="PizzaOrderVo">
+<!-- 		SELECT OR_ID,OR_USER,OR_UNAME,OR_UPN,OR_UAD,OR_PRICE,OR_PAY FROM PIORDER -->
+		SELECT * FROM PIORDER
+	</select>
+	
+<!-- 	주문번호로 회원정보 조회(빈 값 업데이트용) -->
+	<select id="selectOrList" parameterType="int" resultType="PizzaOrderVo">
+	SELECT OR_ID,OR_USER,OR_UNAME,OR_UPN,OR_UAD,OR_PRICE,OR_PAY FROM PIORDER
+	WHERE OR_ID = #{orId}
+	</select>
+	
+<!-- 	회원 아이디로 주문조회 -->
+	<select id="selIdOr" parameterType="String" resultType="PizzaOrderVo">
+	SELECT OR_ID,OR_USER,OR_UNAME,OR_UPN,OR_UAD,OR_PRICE,OR_PAY FROM PIORDER
+	WHERE OR_USER = #{orUser}
+	</select>
+	
+	<select id="selNull" resultType="int">
+	SELECT OR_ID FROM PIORDER
+	where OR_PRICE = 0
+	</select>
+
+	<insert id="insertOrder" parameterType="PizzaOrderVo">
+	insert into PIORDER(OR_ID,OR_USER,OR_UNAME,OR_UPN,OR_UAD,OR_PRICE,OR_PAY) 
+VALUES(SEQ_OR.NEXTVAL,#{orUser},'0','000','0',0,'CARD')
+	</insert>
+	
+	<update id="updateOrder" parameterType="PizzaOrderVo">
+		UPDATE PIORDER SET OR_UNAME=#{orUname},OR_UPN=#{orUpn},OR_UAD=#{orUad},
+		OR_PRICE = (SELECT SUM(LI_MEPRICE*LI_EA) FROM LIST WHERE LI_OR_NUM=#{orId}),OR_PAY=#{orPay}
+		WHERE OR_ID = #{orId}
+	</update>
+	
+	<delete id="deleteOrder" parameterType="int">
+	DELETE FROM PIORDER WHERE OR_ID = #{orId}
+	</delete>
+	
+	<delete id="delNull" parameterType="int">
+	DELETE FROM PIORDER WHERE OR_PRICE = 0
+	</delete>
+	
+	
+<!-- 	******************************************** -->
+					<!--리스트-->
+	
+	<select id="selectLi" resultType="PizzaOrderVo">
+<!-- 		SELECT LI_ID, LI_USER, LI_MEID, LI_MEPRICE,LI_EA, LI_OR_NUM FROM LIST -->
+		SELECT * FROM LIST
+	</select>
+	
+	<select id="selectLiEdit" resultType="PizzaOrderVo">
+	SELECT LI_ID, LI_USER, LI_MEID, LI_MEPRICE,LI_EA, LI_OR_NUM, LI_MENAME FROM LIST
+		WHERE LI_OR_NUM = #{orId}
+	</select>
+
+<select id="selectPrice" resultType="int">
+select ME_PRICE from MENU where ME_ID=#{liMeid}
+</select>
+<select id="selectMeName" resultType="String">
+select ME_NAME from MENU where ME_ID=#{liMeid}
+</select>
+
+<insert id="insertLi" parameterType="PizzaOrderVo">
+		
+	INSERT into List(LI_ID,LI_USER,LI_MEID,LI_MEPRICE,LI_EA,LI_OR_NUM, LI_MENAME)
+values 
+(seq_li.nextval,#{liUser},#{liMeid},#{liMeprice},#{liEa},#{liOrNum},#{liMename})
+<!-- (seq_li.nextval,#{liUser},#{liMeid},(select ME_PRICE from MENU where ME_ID=#{liMeid}),#{liEa},#{liOrNum},(select ME_NAME from MENU where ME_ID=#{liMeid})) -->
+
+	</insert>
+	
+	
+	<update id="updateLi" parameterType="PizzaOrderVo">
+		UPDATE LIST SET LI_EA=#{liEa} WHERE LI_ID=#{liId}
+	</update>
+	
+	
+	
+	<delete id="deleteLi" parameterType="int">
+	DELETE FROM LIST WHERE LI_OR_NUM=#{liOrNum} and LI_ID=#{liId}
+	</delete>
+	
+<select id="sumPrice" resultType="int" parameterType="PizzaOrderVo">
+SELECT sum(LI_MEPRICE*LI_EA) FROM list where LI_OR_NUM=#{orId} 
+</select>
+
+</mapper>
+

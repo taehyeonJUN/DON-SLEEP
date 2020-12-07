@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hi.pizza.world.pizzamenu.PizzaMenuDao">
+
+<resultMap type="PizzaMenuVo" id="PizzaMap">
+	<id property="meId" column="ME_ID" />
+	<result property="meName" column="ME_NAME"/>
+	<result property="mePrice" column="ME_PRICE"/>
+	<result property="meSort" column="ME_SORT"/>
+</resultMap>
+
+	<select id="seletList" resultType="PizzaMenuVo">
+		SELECT * from MENU
+	</select>
+	
+	<select id="selectSize" resultType="PizzaMenuVo">
+		SELECT ME_ID, ME_NAME,ME_PRICE from MENU WHERE ME_SORT='SIZE'
+	</select>
+	<select id="selectTopping" resultType="PizzaMenuVo">
+		SELECT ME_ID, ME_NAME,ME_PRICE from MENU WHERE ME_SORT='TOPPING'
+	</select>
+	<select id="selectSide" resultType="PizzaMenuVo">
+		SELECT ME_ID, ME_NAME,ME_PRICE from MENU WHERE ME_SORT='SIDE'
+	</select>
+
+	<insert id="insertMenu" parameterType="PizzaMenuVo">
+	insert into MENU(ME_ID,ME_NAME, ME_PRICE,ME_SORT) VALUES(SEQ_ME.NEXTVAL,#{meName},#{mePrice},#{meSort})
+	</insert>
+	
+	<update id="updateMenu" parameterType="PizzaMenuVo">
+		UPDATE MENU SET ME_NAME=#{meName}, ME_PRICE=#{mePrice},ME_SORT=#{meSort} WHERE ME_ID=#{meId}
+	</update>
+	
+	<delete id="deleteMenu" parameterType="int">
+	DELETE FROM MENU  WHERE ME_ID =#{meId}
+	</delete>
+	
+	
+	
+	
+
+
+
+
+</mapper>
+

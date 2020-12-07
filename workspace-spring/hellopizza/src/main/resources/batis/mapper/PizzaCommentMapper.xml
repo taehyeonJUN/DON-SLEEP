@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hi.pizza.world.comment.CommentDao">
+
+	<select id="selectCommentList" parameterType="int" resultType="CommentVo">
+		SELECT RP_ID,RP_TEXT,RP_USER,RP_DATE,RP_BBSID FROM RP
+		WHERE RP_BBSID = #{rpBbsid}
+		ORDER BY RP_DATE DESC
+	</select>
+
+
+	<insert id="insertComment" parameterType="CommentVo">		
+		INSERT INTO RP(RP_ID,RP_TEXT,RP_USER,RP_BBSID) 
+		VALUES (SEQ_RP_ID.NEXTVAL,#{rpText},#{rpUser},#{rpBbsid})
+	</insert>
+
+
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM RP WHERE RP_ID = #{rpId}
+	</delete>
+
+</mapper>
+

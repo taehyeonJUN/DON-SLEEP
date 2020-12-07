@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="kr.ac.kopo.bookshop.model.Book" alias="Book"/>		
+		<typeAlias type="kr.ac.kopo.bookshop.model.Customer" alias="Customer"/>
+		<typeAlias type="kr.ac.kopo.bookshop.model.Orders" alias="Orders"/>
+		<typeAlias type="kr.ac.kopo.bookshop.model.Detail" alias="Detail"/>
+		<typeAlias type="kr.ac.kopo.bookshop.model.Review" alias="Review"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/book.xml" />
+		<mapper resource="mybatis/customer.xml" />
+		<mapper resource="mybatis/orders.xml" />
+		<mapper resource="mybatis/detail.xml" />
+		<mapper resource="mybatis/review.xml" />
+	</mappers>
+</configuration>

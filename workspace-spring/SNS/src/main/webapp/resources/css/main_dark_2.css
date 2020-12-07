@@ -1,0 +1,79 @@
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 라벨위치 완료 */
+
+body.dark {
+    background-color: #292c35;
+    
+}
+
+body.dark h3, 
+body.dark li{
+    color: goldenrod;
+}
+body.dark #form-commentInfo  {
+    color: goldenrod;
+}
+body.dark .menu-1 li {
+    color: black;
+}
+
+body.dark .delete-btn a {
+    color: #f3f3f3;
+}
+
+body.dark .delete-btn a:hover {
+    color: goldenrod;
+}
+
+body.dark #submit {
+    color: #000000;
+}
+.checkbox {
+    opacity: 0;
+    position: absolute;
+    
+}
+
+.label {
+    background-color: #111111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 16px;
+    width: 40px;
+    padding: 5px;
+    border-radius: 50px;
+    position: relative;
+    transform: scale(1.5);
+    /* 버튼 자체의 위치 */
+    margin-top: 200px;
+    margin-left: 80px;
+}
+
+.ball {
+    background-color: #fff;
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+    transform: translateX(24px);
+}
+
+.fa-moon {
+    color: #f1c40f;
+}
+
+.fa-sun {
+    color: #f39c12;
+}

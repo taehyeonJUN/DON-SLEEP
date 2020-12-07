@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board_master">
+	<select id="list" resultType="BoardMaster">
+		SELECT * FROM board_master
+		ORDER BY board_id DESC
+	</select>
+		
+	<select id="item" resultType="BoardMaster">
+		SELECT * FROM board_master
+		WHERE board_id=#{boardId}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO board_master(board_id, board_name, reg_date)
+		VALUES (board_master_seq.nextval, #{boardName}, sysdate)
+		
+		<selectKey resultType="Integer" keyProperty="boardId" order="AFTER">
+			SELECT board_master_seq.currval FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<update id="create_board">
+	CREATE TABLE board_${boardId} ( 
+		article_id NUMBER NOT NULL, 
+		subject VARCHAR2(255) NOT NULL, 
+		content CLOB NOT NULL, 
+		reg_date DATE NOT NULL, 
+		edit_date DATE, 
+		view_count NUMBER DEFAULT 0, 
+		good_count NUMBER DEFAULT 0, 
+		bad_count NUMBER DEFAULT 0 ,
+		CONSTRAINT PK_board_${boardId} PRIMARY KEY (article_id)
+	)
+	</update>
+	
+	<update id="create_seq">
+		CREATE SEQUENCE ARTICLE_SEQ_${boardId}
+	</update>
+	
+	<update id="create_reply_seq">
+		CREATE SEQUENCE REPLY_SEQ_${boardId}
+	</update>
+	
+	<update id="create_reply">
+	CREATE TABLE reply_${boardId} (
+		reply_id NUMBER NOT NULL, 
+		writer VARCHAR2(16) NOT NULL, 
+		content VARCHAR2(255) NOT NULL, 
+		reg_date DATE, 
+		article_id NUMBER,
+		CONSTRAINT PK_reply_${boardId} PRIMARY KEY (reply_id),
+		CONSTRAINT FK_board_TO_reply_${boardId} FOREIGN KEY (article_id) REFERENCES board_${boardId} (article_id)
+	)	
+	</update>
+	
+	<update id="update">
+		UPDATE board_master
+		SET board_name=#{boardName}, 
+			attach_type=#{attachType}, 
+			board_type=#{boardType}, 
+			reply_type=#{replyType}, 
+			read_perm=#{readPerm}, 
+			write_perm=#{writePerm}
+		WHERE board_id=#{boardId}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM board_master
+		WHERE board_id=#{boardId}
+	</delete>
+	
+	<update id="remove_board">
+		DROP TABLE board_${boardId}
+	</update>
+	
+	<update id="remove_seq">
+		DROP SEQUENCE article_seq_${boardId}
+	</update>
+	
+	<update id="remove_reply">
+		DROP TABLE reply_${boardId}
+	</update>
+	<update id="remove_reply_seq">
+		DROP SEQUENCE REPLY_seq_${boardId}
+	</update>
+	
+</mapper>

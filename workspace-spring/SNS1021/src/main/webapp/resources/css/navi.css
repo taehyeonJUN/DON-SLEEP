@@ -1,0 +1,23 @@
+.logo{
+    width: 320px;
+    height: 180px;
+    margin-left: 50px;
+}
+#navi-container{
+    display: inline-block;
+    position: absolute;
+    margin: 100px;
+}
+ul li{
+    display: inline-block;
+    list-style: none;
+}
+.search{
+    margin-left: 360px;
+}
+#navi{
+    margin-left: 500px;
+}
+#navi li{
+    margin-left: 20px;
+}

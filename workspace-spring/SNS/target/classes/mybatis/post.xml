@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<select id="list" resultType="Post">
+	
+	SELECT * FROM POST WHERE POST_ID=#{postId}
+	OR POST_ID IN(SELECT FOLLOW_Y FROM FOLLOW where FOLLOW_I=#{postId})
+	ORDER BY POST_DATE DESC 
+
+	</select>
+	
+	<insert id="add" parameterType="Post">
+	
+		<selectKey keyProperty="postNo" resultType="int" order="BEFORE">
+		select SE_POST.NEXTVAL from dual
+		</selectKey>
+	
+	INSERT INTO post VALUES (#{postNo}, #{postId},#{postContent},0,sysdate)
+	</insert>
+	
+	<delete id="delete">
+	DELETE FROM POST WHERE POST_NO = #{postNo}
+	</delete>
+	
+	<select id="postData" resultType="Post">
+	SElECT * FROM POST WHERE POST_NO = #{postNo}
+	</select>
+	
+	<update id="update">
+	UPDATE POST set POST_CONTENT = #{postContent} where post_no = #{postNo}
+	</update>
+	
+	<select id="like_check" resultType="int">
+		SELECT count(*) FROM POST_LIKE where LIKE_ID=#{postId} and LIKE_POST_NO =#{postNo}
+	</select>
+	
+	<insert id="like_add" parameterType="Post">
+		INSERT into POST_LIKE VALUES(se_like.nextval,#{postNo},#{postId})
+	</insert>
+	
+	<select id="checkLike" resultType="int">
+	SELECT count(*) FROM POST_LIKE where LIKE_POST_NO =#{postNo}
+	</select>
+	
+	<delete id="like_delete" parameterType="Post">
+		DELETE FROM POST_LIKE WHERE LIKE_ID=#{postId} and LIKE_POST_NO =#{postNo}
+	</delete>
+	
+		<select id="newList" resultType="Post">
+     SELECT * FROM POST WHERE
+	POST_ID like CONCAT (#{postId},'%') AND
+	POST_ID=#{postId}
+	OR POST_ID IN(SELECT FOLLOW_Y FROM FOLLOW where FOLLOW_I=#{postId})
+	ORDER BY POST_DATE DESC
+   
+	</select>
+	
+	<select id="follow_check" resultType="int">
+	SELECT count(*) FROM FOLLOW where FOLLOW_I=#{followI} and FOLLOW_Y=#{followY}
+	</select>
+	
+	<insert id="follow_add">
+	INSERT into FOLLOW values(SE_FOLLOW.nextval,#{followI},#{followY})
+	</insert>
+	
+	
+	<delete id="follow_delete">
+	delete from FOLLOW  where FOLLOW_I=#{followI} and FOLLOW_Y=#{followY}
+	</delete>
+	
+	<select id="count_Follow">
+	SELECT count(*) FROM FOLLOW where FOLLOW_I=#{followI}
+	</select>
+	
+	<select id="count_Follower">
+	SELECT count(*) FROM FOLLOW where FOLLOW_Y=#{followY}
+	</select>
+	
+	
+	<select id="RpAmount" resultType="int">
+	SELECT count(*) FROM RP WHERE RP_POST_NO=#{postNo}
+	</select>
+	
+	
+	</mapper>

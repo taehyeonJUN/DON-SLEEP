@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="customer">
+	<sql id="search">
+		SELECT * FROM customer ORDER BY custid		
+	</sql>
+	
+	<select id="total" resultType="Integer">
+		SELECT COUNT(*) FROM 
+			(<include refid="search"></include>) sub
+	</select>
+	
+	<select id="list" resultType="Customer">
+		SELECT * FROM   			
+    		(<include refid="search"></include>) sub
+    	LIMIT #{offset}, #{perPage}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO customer
+		(name, address, phone)
+		VALUES (#{name}, #{address}, #{phone})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM customer
+		WHERE custid=#{custid}
+	</delete>
+	
+	<update id="update">
+		UPDATE customer
+		SET name=#{name}, address=#{address}, phone=#{phone}
+		WHERE custid=#{custid}
+	</update>
+	
+	<select id="item" resultType="Customer">
+		SELECT * FROM customer
+		WHERE custid=#{custid}
+	</select>
+	
+	<select id="login" resultType="Customer">
+		SELECT * FROM customer
+		WHERE name=#{name} AND phone=#{phone}
+	</select>
+	
+	<select id="checkid" resultType="Integer">
+		SELECT COUNT(*) FROM customer
+		WHERE name=#{id}
+	</select>
+</mapper>

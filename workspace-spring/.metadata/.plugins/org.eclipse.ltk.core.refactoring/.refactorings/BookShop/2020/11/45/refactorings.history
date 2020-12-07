@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Pager.java&apos; to &apos;polyCms/src/main/java/kr.ac.kopo.polycms.model&apos;&#x0D;&#x0A;- Original project: &apos;BookShop&apos;&#x0D;&#x0A;- Destination element: &apos;polyCms/src/main/java/kr.ac.kopo.polycms.model&apos;&#x0D;&#x0A;- Original element: &apos;kr.ac.kopo.bookshop.model.Pager.java&apos;" description="Copy compilation unit" destination="=polyCms/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.polycms.model" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.bookshop.model{Pager.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1604467759060" units="1" version="1.0"/>
+</session>

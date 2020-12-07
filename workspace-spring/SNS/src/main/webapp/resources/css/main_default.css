@@ -1,0 +1,171 @@
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+
+/* 기본 css 시작 */
+* {margin: 0; padding: 0;}
+:root {
+    --text-color: #000000;
+    --backround-color: #f0f4f5;
+    --accent-color: goldenrod;
+}
+body {margin: 0 auto; font-family: 'Nanum Gothic', sans-serif;}
+a {text-decoration: none; color: var(--text-color);}
+li {list-style: none;}
+
+/* 헤더 시작 */
+.header-contanier {background: var(--backround-color); width: 100%; top: 0; position: fixed; 
+                    border-bottom: 1.5px solid #d3d3d3; z-index: 10; height: 100px;}
+.header-wrap {background-color: var(--backround-color); max-width: 700px; margin: 0 auto; 
+                display: flex; justify-content: space-between; align-items: center; 
+                border-bottom: none; z-index: 10; position: relative; top: 15px;}
+.head {display: flex; justify-content: space-between; align-items: center;}
+.logo {padding-top: 10px; font-family: 'Lobster', cursive; font-size: 30px;} 
+.logo img{width: 30px; padding-top: 11px; cursor: pointer;}
+.logo-font {padding-top: 10px; font-family: 'Lobster', cursive; font-size: 30px; cursor: pointer;}
+.menu-btn a {position: absolute; top: 10px; right: 0px;}
+.menu-btn img {width: 40px;}
+
+/* 검색기능 시작 */
+
+
+.form-group {padding-top: 17px; padding-left: 270px;
+    position: absolute;}
+.form-group button img {width: 12px; height: 12px; padding: 0 10px 0 10px; cursor: pointer;}
+
+
+/* 사이드바 위치 및 속성 */
+.menu-1 {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 70px;
+    padding-top: 210px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.menu-1 ul li  {
+    border: 1px solid #f0f4f5;
+}
+
+.menu-1 ul li:hover {
+    background: goldenrod;
+}
+
+ /* 햄버거 버튼 */
+input[id="menuicon"] {display: none;}
+/* 햄버거 버튼 위치 */
+input[id="menuicon"] + label {
+    display: block;
+    width: 40px; /* 햄버거 가로길이 */
+    height: 20px; /* 햄버거 세로길이 */
+    position: fixed;
+    position: absolute; /* 햄버거 head-wrap : relative 이용해서 head-wrap 박스 안에 위치 고정 */
+    right: 0; /* fixed 위치값 */
+    top: calc(50% - 25px); /* fixed 위치값 */
+    top: 25px; 
+    transition: all .35s;
+    cursor: pointer;
+}
+input[id="menuicon"]:checked + label {
+    z-index: 2;
+    top: 25px; /* checked 후 햄버거 버튼 위치값 */
+}
+
+input[id="menuicon"] + label span {
+    /* 햄버거 꾸미기 */
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 30px;
+    background: #000000;
+    transition: all .35s;
+}
+input[id="menuicon"] + label span:nth-child(1){
+    top: 0;
+}
+input[id="menuicon"] + label span:nth-child(2){
+    top: 50%;
+    transform: translateY(-50%); /* Y축 이동 */
+}
+input[id="menuicon"] + label span:nth-child(3){
+    bottom: 0;
+}
+
+input[id="menuicon"]:checked + label span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg); /*rotate : 요소 회전 deg : 각도 */
+}
+input[id="menuicon"]:checked + label span:nth-child(2) {
+    opacity: 0;   /*투명도*/
+}
+input[id="menuicon"]:checked + label span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+/* 햄버거 버튼 종료 */
+
+/* 사이드바 시작 */
+div[class="sidebar"] {
+    width: 200px;
+    height: 100%;
+    background: #dddddd;
+    position: fixed;
+    top: 0;
+    right: -301px;
+    z-index: 1;
+    transition: all .35s;
+    /* border-radius: 10% 0 0 80% ; */
+    border-left: 1px solid #000000;
+}
+input[id="menuicon"]:checked + label + div {
+    right: 0;
+    
+}
+
+
+
+
+/* 메뉴, 네비게이션 js 부분 */
+/* .nav-btn.active {display: flex;}
+.delete-btn.nav-btn.active {display: flex;} */
+
+/* 미드(헤드) 시작 */
+.mid-contaniner {width: 100%}
+.mid-wrap {max-width: 700px; margin: 0 auto; margin-top: 200px; position: relative;}
+.mid-head {border-bottom: 1px solid #dddddd;}
+.mid-head ul {display: flex; justify-content: space-between;  align-items: center;}
+.mid-head ul li:nth-child(1) img {width: 35px;}
+.mid-head ul li:nth-child(3) img {width: 30px; margin-top: 5px;}
+.delete-btn {display: none; position: absolute; right: 0; line-height: 25px;}
+.delete-btn a:hover {color: goldenrod; font-weight: 800;}
+
+/* 미드(사진 부분) 시작 */
+.mid-bg {width: 100%;}
+.photo-area {max-width: 700px;}
+.photo-area img {width: 100%; height: auto; padding-top: 55px;}
+.btn-area ul li {display: inline-block;}
+.btn-area img {width: 40px; padding: 15px 5px 0 0;}
+.btn-area ul li:last-child {float: right;}
+/* .btn-area ul li {display: inline-block;}
+.btn-area ul li img {width: 25px; padding: 10px 5px 0 0;} */
+
+/* 댓글 본문 (좋아요 아이디 부분)*/
+.re-container {
+    padding-top: 10px;
+}
+.re-container ul li{
+    line-height: 37px;
+}
+
+
+
+
+
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */
+/* 1021 어렵게 픽스!! 절대 삭제 불가!!! 원본유지!! */

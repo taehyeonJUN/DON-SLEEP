@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- main css -->
+    <!-- <link rel="stylesheet" href="../../css/main/1020_main.css"> -->
+    <!-- 댓글 css & 댓글 부트스트랩-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Main 기본 헤더 ~ 미드(좋아요, 아이디 등 까지) css -->
+    <link rel="stylesheet" href="../../css/main/main_default.css">
+    <!-- 라이트 다크 css -->
+    <link rel="stylesheet" href="../../css/main/main_dark_2.css">
+    <!-- 댓글 css -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../../css/main/main_reple_2.css"> 
+    <!-- logo 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- 나눔고딕 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- 토글, 스르륵 jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 아이콘 제작자 <a href="https://www.flaticon.com/kr/authors/vaadin" title="Vaadin">Vaadin</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon"> www.flaticon.com</a> -->
+    <title>:::::: Tongrami ::::::</title>
+</head>
+<body>
+    <div class="header-contanier">
+        <div class="header-wrap">
+            <header class="head">
+                <div class="logo"><a href="#"><img src="../../images/iconmonstr-beer-11-240.png" alt="통그라미로고"> </a></div>
+                <div class="logo-font"> <p>Tongrami</p></div>
+                <!-- 검색기능 시작 -->
+                    <div class="form-group">
+                        <form action="newList" method="post">
+                        <input type="text" name="postId"  placeholder="      아이디를 입력하세요.">
+                        <button type="button" value="검색" class="glyphicon glyphicon-search"><img src="../../images/free-icon-search-107122.png" alt="search"></button>
+                        </form>
+                    </div>
+                <!-- 검색기능 끝 -->
+                <!-- <input type="text" value="검색어를 입력하세요."><button>검색</button> -->
+                <!-- 햄버거 시작 -->
+                <div class="menuicon-contaniner">
+                    <input type="checkbox" id="menuicon">
+                    <label for="menuicon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div class="sidebar">
+                        <div class="menu-1">
+                            <ul>
+                                <a href="#"><li>HOME</li></a>
+                                <a href="#"><li>LIKE</li></a>
+                                <a href="#"><li>MY INFO</li></a>
+                                <a href="#"><li>UPLOAD</li></a>
+                            </ul>
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" class="checkbox" id="checkbox">
+                                <label for="checkbox" class="label">
+                                    <div class="ball"></div>
+                                </label>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <!-- 햄버거 끝 -->
+            </header>
+        </div>
+    </div>
+    <div class="mid-contaniner">
+        <div class="mid-wrap">
+            <div class="mid-head">
+                <ul>
+                    <li><a href="내정보보기랑연결하기" class="icon"><img src="../../images/iconmonstr-smiley-2-240.png" alt=""></a></li>
+                    <li><a href="내정보보기랑연결하기"><h3>ID_TONGRAMI</h3></a></li>
+                    <li><a href="#" class="setting-btn"><img src="../../images/iconmonstr-menu-dot-horizontal-thin-240.png" alt=""></a></li>                
+                </ul>
+                <!-- 토글 속의 메뉴 -->
+                <div class="delete-btn">
+                    <a href="#">수정하기</a><br>
+                    <a href="#">삭제하기</a>
+                </div>
+            </div>
+            <div class="mid-bg">
+                <div class="photo-area">
+                    <img src="../../images/jeju_1.jpg" alt="메인이미지">
+                </div>
+                <div class="btn-area">
+                    <ul>
+                        <li><a href="#"><img src="../../images/iconmonstr-favorite-1-240.png" alt=""></a></li>
+                        <li><a href="#"><img src="../../images/iconmonstr-speech-bubble-12-240.png" alt=""></a></li>
+                        <li><a href="#"><img src="../../images/iconmonstr-smiley-12-240.png" alt=""></a></li>
+                        <li><a href="#"><img src="../../images/iconmonstr-tree-2-240.png" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="re-container">
+                <ul>
+                    <li>좋아요</li>
+                    <li>아이디</li>
+                    <li>글쓰기</li>
+                    <!-- <li>댓글</li> -->
+                </ul>
+            </div>
+            <!-- 댓글 기능 시작 -->
+            <!-- <div id="form-commentInfo"> 
+                <div id="comment-count">댓글 <span id="count">0</span></div> 
+                <input id="comment-input" name="id" id="id" autocomplete="off" placeholder="댓글을 입력해 주세요."  required> 
+                <button id="submit">등록</button> 
+            </div> -->
+            <div id="form-commentInfo">
+                <div id="comment-count">댓글 <span id="count">0</span></div>
+                <input type="text" name="id" id="id" autocomplete="off" placeholder="댓글을 입력해 주세요." required>
+                <button id="submit">UP</button> 
+            </div>
+        </div>
+    </div>
+    <!-- main 자바스크립트 -->
+    <script src="../../js/main/main_toggle.js"></script>
+    <script src="../../js/main/main_reple.js"></script>
+    <script src="../../js/main/main_srr.js"></script>
+    <script src="../../js/main/main_dark.js"></script>
+    <!-- <script src="../../js/main/main_default.js"></script> -->
+</body>
+</html>

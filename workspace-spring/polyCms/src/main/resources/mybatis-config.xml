@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+<settings>
+<!-- 	_표기법을 사용한 컬럼이름을 낙타표기법을 사용한 자바 변수이름과 맵핑하는 기능 -->
+  <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+	<typeAliases>
+		<typeAlias type="kr.ac.kopo.polycms.model.boardmaster" alias="boardmaster"/>
+		<typeAlias type="kr.ac.kopo.polycms.model.Article" alias="Article"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/boardmaster.xml" />
+		<mapper resource="mybatis/article.xml" />
+	</mappers>
+</configuration>

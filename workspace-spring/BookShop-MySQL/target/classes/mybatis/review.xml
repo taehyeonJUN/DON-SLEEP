@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="review">
+	<select id="list" resultType="Review">
+		SELECT*FROM review
+		WHERE bookid = #{bookid}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO review(custid, bookid,content, regdate, star)
+		VALUES(#{custid},#{bookid},#{content},NOW(),#{star})
+	</insert>
+
+	<update id="update">
+	UPDATE review SET content=#{content}, star=#{star} 
+	WHERE reviewid=#{reviewid} and custid=#{custid}
+	</update>
+
+
+	<delete id="delete">
+		DELETE FROM review WHERE custid=#{custid} and reviewid=#{reviewid}
+	</delete>
+	
+	<select id="item">
+		select * from review
+		where reviewid=#{reviewid}
+	</select>
+</mapper>

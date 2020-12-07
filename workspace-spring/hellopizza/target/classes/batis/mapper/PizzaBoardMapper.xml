@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hi.pizza.world.board.BoardDao">
+
+<resultMap type="BoardVo" id="boardMap">
+	<id property="bbsId" column="BBS_ID" />
+	<result property="bbsUser" column="BBS_USER"/>
+	<result property="bbsTitle" column="BBS_TITLE"/>
+	<result property="bbsText" column="BBS_TEXT"/>
+	<result property="bbsDate" column="BBS_Date"/>
+</resultMap>
+
+<sql id="searchSQL">
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+
+			<if
+				test="searchType !=null and searchWord!=null and searchType == 'title'">
+				BBS_TITLE like '%' ||#{searchWord}|| '%'
+			</if>
+			<if
+				test="searchType !=null and searchWord!=null and searchType == 'writer'">
+				or BBS_USER like '%' ||#{searchWord}|| '%'
+			</if>
+			<if
+				test="searchType !=null and searchWord!=null and searchType == 'title_Writer'">
+				 upper(BBS_TITLE) like '%' ||upper(#{searchWord})|| '%'
+    			or upper(BBS_USER) like '%' ||upper(#{searchWord})|| '%'
+			</if>
+		</trim>
+
+	</sql>
+
+
+	<select id="selectBoardList" resultType="BoardVo" parameterType="SearchInfo">
+		SELECT BBS_ID,BBS_USER,BBS_TITLE,BBS_DATE, rnum
+		from (select BBS_ID,BBS_USER,BBS_TITLE,BBS_DATE, rownum rnum
+		from (select BBS_ID,BBS_USER,BBS_TITLE,BBS_DATE
+		FROM BBS
+		
+		<include refid="searchSQL"></include>
+
+		ORDER by BBS_ID desc)
+		)
+	  <![CDATA[
+	where #{firstRecordIndex} <=rnum and rnum<=#{lastRecordIndex}
+   ]]>
+		
+		
+	</select>
+	<select id="selectBoard" resultType="BoardVo">
+		SELECT BBS_ID,BBS_USER,BBS_TITLE,BBS_TEXT,BBS_DATE
+		FROM BBS
+		WHERE BBS_ID = #{bbsId}
+	</select>
+	<insert id="insertBoard" parameterType="BoardVo">
+	<selectKey keyProperty="bbsId" resultType="int" order="BEFORE">
+  		select BBS_ID.nextVal from dual
+  	</selectKey>
+		INSERT INTO BBS
+		(BBS_ID,BBS_TITLE,BBS_TEXT,BBS_USER)
+		VALUES(#{bbsId},#{bbsTitle},#{bbsText},#{bbsUser})
+	</insert>
+	<update id="updateBoard" parameterType="BoardVo">
+		UPDATE BBS
+		SET BBS_TITLE = #{bbsTitle}, BBS_TEXT = #{bbsText}
+		WHERE BBS_ID = #{bbsId} and BBS_USER = #{bbsUser}
+	</update>
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BBS WHERE BBS_ID = #{bbsId} and BBS_USER = #{bbsUser}
+	</delete>
+	
+	<select id="selectCount" resultType="int"
+		parameterType="SearchInfo">
+		SELECT count(*) FROM BBS
+
+		<include refid="searchSQL"></include>
+	</select>
+	
+
+
+
+</mapper>
+

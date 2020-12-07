@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Rp">
+
+<select id="list" parameterType="Rp" resultType="Rp">
+SELECT * FROM RP
+WHERE RP_POST_NO=#{rpPostNo}
+ORDER BY RP_DATE DESC
+</select>
+
+<insert id="add" parameterType="Rp">
+	INSERT INTO RP 
+	VALUES(SE_RP.NEXTVAL,#{rpContent},SYSDATE,#{rpPostNo},#{rpId})
+</insert>
+
+<select id="item" resultType="Post">
+SELECT * FROM POST 
+WHERE POST_ID=#{postId}
+</select>
+
+<delete id="delete">
+DELETE FROM RP 
+WHERE RP_NO=#{rpNo}
+</delete>
+
+<update id="update">
+UPDATE RP SET RP_CONTENT=#{rpContent}
+FROM RP
+WHERE RP_NO=#{rpNo}
+</update>
+
+<select id="read" resultType="Rp">
+SELECT * FROM RP
+WHERE RP_NO=#{rpNo}
+</select>
+
+<update id="Rpupdate">
+UPDATE RP SET RP_CONTENT = #{rpContent}
+FROM RP
+WHERE RP_NO=#{rpNo}
+</update>
+
+<!-- <select id="list" resultType="Rp"> -->
+<!-- SELECT * FROM RP -->
+<!-- WHERE RP_POST_NO=#{rpPostNo} -->
+<!-- </select> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

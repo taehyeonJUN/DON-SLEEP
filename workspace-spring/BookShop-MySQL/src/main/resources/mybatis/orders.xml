@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orders">
+	<sql id="search">
+		SELECT orders.*, customer.name FROM orders
+		JOIN customer ON orders.custid=customer.custid
+	</sql>
+	
+	<select id="total" resultType="Integer">
+		SELECT COUNT(*) FROM 
+		(<include refid="search"></include>) sub
+	</select>
+	
+	<select id="list" resultType="Orders">
+		SELECT * FROM
+		(<include refid="search"></include>) sub
+		ORDER BY orderid DESC
+	</select>
+	
+	<resultMap type="Orders" id="OrdersMap">
+		<id column="orderid" property="orderid" />
+		<result column="custid" property="custid" />
+		<result column="saleprice" property="saleprice" />
+		<result column="orderdate" property="orderdate" />
+		<result column="name" property="name" />
+		
+		<collection property="detail" column="oid" ofType="Detail" javaType="ArrayList">
+			<id column="detailid" property="detailid" />
+			<result column="bookid" property="bookid" />
+			<result column="orderid" property="orderid" />
+			<result column="amount" property="amount" />
+			<result column="bookname" property="bookname" />		
+			<result column="price" property="price" />
+		</collection>
+	</resultMap>
+	
+	<select id="item" resultMap="OrdersMap">
+		SELECT orders.*, detail.orderid oid, detail.*, customer.name, book.bookname, book.price FROM orders
+		JOIN detail ON orders.orderid=detail.orderid
+		JOIN customer ON orders.custid=customer.custid
+		JOIN book ON detail.bookid=book.bookid
+		WHERE orders.orderid=#{orderid}
+	</select>
+	
+	<insert id="add">
+		INSERT INTO orders
+		VALUES (NULL, #{custid}, #{saleprice}, NOW())
+		
+		<selectKey keyProperty="orderid" order="AFTER" resultType="Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="update">
+		UPDATE orders
+		SET custid=#{custid}, saleprice=#{saleprice}, orderdate=#{orderdate}
+		WHERE orderid=#{orderid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM orders
+		WHERE orderid=#{orderid}
+	</delete>
+</mapper>
+

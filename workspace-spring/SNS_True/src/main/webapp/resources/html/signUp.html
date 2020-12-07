@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:: Tongrami 회원가입 ::</title>
+    <!-- <link rel="stylesheet" href="연습회원가입.css"> -->
+    <link rel="stylesheet" href="../../css/join/signUp.css">
+    <!-- <script src="../../js/1016_signUp.js"></script> -->
+   <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+    <section class="login-form">
+    <div class="main-container">
+        <legend class="lele">회원가입</legend>
+        <div class='bg'>
+            <br/>
+            <p>Create a New Account</p>
+            <br/>
+        </div>
+        <form action="" class="text-input" method="POST">
+            <div class="int-area">
+                <input type="text" id="userId" name="id"  autocomplete="off" required/>
+                <label for="id">USER NAME</label>
+                <button class="check-btn">중복체크</button>
+            </div>
+            <br/>
+            <div class="int-area">
+                <input type="text" id="userName" name="name" autocomplete="off" required/>
+                <label for="name">NAME</label>
+            </div>
+            <br>
+            <div class="int-area">
+                <input type="password" id="userPw" name="pw" autocomplete="off" required/>
+                <label for="pw">PASSWORD</label>
+            </div>
+            <br/>
+            <div class="int-area">
+                <input type='password' id='userPassCheck' name='passCheck' autocomplete="off" required/>
+                <label for='passCheck'>PASSWORD CHECK</label><br/>
+            </div>
+            <br/>
+            <div class="int-area">
+                <input type='tel' id='userPhone' name='phone-num' autocomplete="off" required/>
+                <label for='tel'>PHONE NUMBER</label><br/>
+            </div>
+        </form>
+        <div class="signUp-btn">
+            <a href="../../html/1019_로그인_픽스.html"><button type="submit" class="signUp-btn-wrap">Sign Up</button></a>
+        </div> 
+    </div>
+    <div class="bottom-contaniner">
+        <div class="bottom-wrap">
+            <footer class="bottom">
+                <h5>Copyright ⓒ 2020 Tongrami. All rights reserved.</h5>
+            </footer>
+        </div>
+    </div>
+    </section>
+</body>
+</html>

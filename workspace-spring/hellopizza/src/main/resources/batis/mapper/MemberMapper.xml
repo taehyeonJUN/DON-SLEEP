@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hi.pizza.world.member.MemberDao">
+	<resultMap type="MemberVo" id="MemberMap">
+	
+	<id property="memId" column="MEM_ID" />
+	<result property="memId" column="MEM_ID" />
+	<result property="memName" column="MEM_NAME" />
+	<result property="memPW" column="MEM_PW" />
+	<result property="memPN" column="MEM_PN" />
+	<result property="ROL" column="ROL" />
+	
+	</resultMap>
+	
+	<sql id="searchSQL">
+	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+
+    <if test="searchType !=null and searchWord!=null and searchType == 'id'">
+    upper(mem_id) like '%' ||upper(#{searchWord})|| '%'
+  </if>
+   <if test="searchType !=null and searchWord!=null and searchType == 'name'">
+     or upper(mem_name) like '%' ||upper(#{searchWord})|| '%'
+  </if>
+  
+   <if test="searchType !=null and searchWord!=null and searchType == 'id_Name'">
+     upper(mem_id) like '%' ||upper(#{searchWord})|| '%'
+    or upper(mem_name) like '%' ||upper(#{searchWord})|| '%'
+   
+  </if>
+</trim>
+	
+	</sql>
+	
+  <select id="selectMemberList" resultType="MemberVo" parameterType="SearchInfo">
+    select MEM_ID,MEM_NAME,MEM_PW,MEM_PN,ROL, rnum
+	from (select MEM_ID,MEM_NAME,MEM_PW,MEM_PN,ROL, rownum rnum
+    from (SELECT MEM_ID,MEM_NAME,MEM_PW,MEM_PN,ROL
+     from member
+            
+             <include refid="searchSQL"></include>
+            
+             ORDER by MEM_ID desc)
+ )
+	  <![CDATA[
+	where #{firstRecordIndex} <=rnum and rnum<=#{lastRecordIndex}
+   ]]>
+  </select>
+  
+  <select id="selectMember" parameterType="string" resultType="MemberVo"> 
+  SELECT MEM_ID, MEM_NAME, MEM_PW, MEM_PN, ROL
+  FROM member where MEM_ID=#{memId}
+  </select>
+  
+<insert id="insertMember" parameterType="MemberVo" >
+INSERT INTO member (MEM_ID, MEM_NAME, MEM_PW, MEM_PN,ROL) 
+values(#{memId},#{memName},#{memPW},#{memPN},'USER')
+</insert>
+	
+<update id="updateMember" parameterType="string">
+UPDATE member set MEM_ID = #{memId}, MEM_NAME = #{memName}, MEM_PN = #{memPN} WHERE MEM_ID = #{memId}
+</update>	  
+  
+ <delete id="deleteMember" parameterType="string">
+ DELETE FROM member WHERE MEM_ID= #{memId}
+ </delete>
+  
+ <select id="selectLoginMember" parameterType="MemberVo" resultType="MemberVo">
+  SELECT * FROM member 
+   where MEM_ID=#{memId} and MEM_PW=#{memPW}
+ </select>
+  
+   <select id="selectCount" resultType="int" parameterType="SearchInfo">
+   SELECT count(*) FROM MEMBER
+   
+    <include refid="searchSQL"></include>
+   
+  </select>
+  
+</mapper>

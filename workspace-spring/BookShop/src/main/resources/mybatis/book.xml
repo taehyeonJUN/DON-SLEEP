@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book">
+
+<!-- sql쿼리는 내부적으로 조각으로 사용할때, 직접 불러올 수 없음  -->
+	<sql id="search">
+		select * from book
+			<where>
+				<if test="search == 1">
+					bookid = #{keyword}
+				</if>
+				<if test="search == 2">
+					bookname LIKE CONCAT (CONCAT('%' ,#{keyword}), '%')
+				</if>
+				
+				<if test="search == 3">
+					publisher LIKE CONCAT (CONCAT('%' ,#{keyword}), '%')
+				</if>
+				<if test="search == 4">
+					price =#{keyword}
+				</if>
+			</where>
+			
+<!-- 			표의 제목 클릭시 오름,내림 바꾸는 쿼리 (정렬 바꾸기) -->
+				<if test="header == 1">
+					order by bookid
+				</if>
+				<if test="header == 2">
+					order by bookname
+				</if>
+				<if test="header == 3">
+					order by publisher
+				</if>
+				<if test="header == 4">
+					order by price
+				</if>
+				
+				<if test="order == 0">
+					asc
+				</if>
+				<if test="order == 1">
+					desc
+				</if>
+	</sql>
+
+	<select id="list" resultType="Book">
+		SELECT * FROM
+			(select rownum rn, sub.* from
+			((<include refid="search"></include>)) sub)
+		<![CDATA[
+		where rn>((#{page}-1) * #{perPage})and rn<=(#{page} * #{perPage})
+		]]>
+	</select>
+
+	<insert id="add">
+		INSERT INTO book
+		VALUES (#{bookid}, #{bookname}, #{publisher}, #{price})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM book
+		WHERE bookid=#{bookid}
+	</delete>
+
+	<update id="update">
+		UPDATE book
+		SET bookname=#{bookname},
+		publisher=#{publisher}, price=#{price}
+		WHERE bookid=#{bookid}
+	</update>
+
+	<select id="item" resultType="Book">
+		SELECT * FROM book
+		WHERE
+		bookid=#{bookid}
+	</select>
+	<select id="total" resultType="Integer">
+		SELECT COUNT(*) FROM
+			(<include refid="search"></include>)
+	</select>
+
+
+</mapper>

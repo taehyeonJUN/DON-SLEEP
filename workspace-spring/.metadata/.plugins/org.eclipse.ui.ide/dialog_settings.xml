@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID" value="true"/>
+		<item key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
+		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Student\Documents\카카오톡 받은 파일\2020.11.05\PolyCMS"/>
+			<item value="C:\Users\Student\Documents\SNS-Project\피자+sns10_27\hellopizza"/>
+			<item value="C:\Users\Student\Documents\SNS-Project\피자+sns10_27\SNS"/>
+			<item value="C:\Users\Student\Documents\SNS-Project\spring\sns_tae_1025"/>
+			<item value="C:\Users\Student\Desktop\10_21_beomsoo"/>
+			<item value="C:\Users\Student\Desktop\10_20"/>
+			<item value=""/>
+			<item value="C:\Users\Student\Desktop\노트북 프로젝트 복사\BookShop"/>
+			<item value="C:\Users\Student\Desktop\옮길거 (2)\exspring"/>
+			<item value="C:\Users\Student\Desktop\노트북 프로젝트 복사\SNS"/>
+			<item value="C:\Users\Student\Documents\Tongurami\spring\Tongrami"/>
+			<item value="C:\Users\Student\Desktop\ddd\BookShop"/>
+			<item value="D:\workspace-spring\BookShop"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+			<item value="C:\Users\Student\Documents\카카오톡 받은 파일\AcademyInfo (1).zip"/>
+			<item value="C:\Users\Student\Documents\카카오톡 받은 파일\Academyinfo.zip"/>
+			<item value="C:\Users\Student\Documents\SNS-Project\spring\09_28.zip"/>
+			<item value="C:\Users\Student\Desktop\BookShop-MySQL_2020-9-24.zip"/>
+		</list>
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="DIALOG_WIDTH" value="500"/>
+		<item key="DIALOG_HEIGHT" value="389"/>
+		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+	</section>
+</section>

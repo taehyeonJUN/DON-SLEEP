@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="kr.ac.kopo.reply.ReplyDao">
+	
+
+	<select id="selectList" parameterType="int" resultType="kr.ac.kopo.reply.ReplyVo">
+
+		SELECT rep_no, rep_content, rep_writer, rep_date, rep_bbs_no FROM reply
+		where rep_bbs_no = #{bbsNo}
+		 order by rep_date desc
+	</select>
+
+	
+
+	<!-- 파라미터로 받은 객체의 속성(변수)값을 SQL문에 주입하기 위해서 #{변수명}을 사용 -->
+	<insert id="insertReply" parameterType="ReplyVo">
+
+
+		INSERT into reply (rep_no,rep_content,rep_writer, rep_bbs_no)
+		values(seq_rep_no.nextval, #{repContent}, #{repWriter} ,#{repBbsNo})
+	</insert>
+
+
+</mapper>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!--   *.java,*.xml :변경 후 재시작 필요(*.java는  실행중 변경 시 이클립스가 자동 재실행) -->
+<!--   *.jsp,*.html,*.css,*.js :변경 후 재시작 필요없음, 새로고침만 하면 됨 -->
+  
+  
+<!--   현재 Mepper 파일 (SQL문들의 집합)의 고유한 이름을 namespace 속성에 지정-->
+<!-- 일반적으로 여기 등록된 SQL문들을 실행할 인터페이스의 이름과 동일하게 설정  -->
+<mapper namespace="kr.ac.kopo.member.MemberDao">
+	<resultMap type="MemberVo" id="MemberMap">
+<!--MemberMap이라는  resultMap을 정의
+    mem_id의 컬럼 값을 kr.ac.kopo.member.MemberVo 객체의 memId 변수(속성)에 저장
+ 	지정한 파일의 변수들 property -->
+<!--  	기본키의 경우 result 대신 id태그 사용 -->
+	<id property="memId" column="mem_id" /> 
+<!-- 	 mem_pass의 컬럼 값을 kr.ac.kopo.member.MemberVo 객체의 memPass 변수(속성)에 저장 -->
+	<result property="memPass" column="mem_pass" />
+	<result property="memName" column="mem_name" />
+	<result property="memPoint" column="mem_point" />
+
+	</resultMap>
+<!-- 1111111111111111111111111111111111111111111111111111111111111111	 -->
+<!-- 다수의 sql문에서 공통적으로 사용하는 부분을 별도의 sql문으로 정리해놓고 필요한 곳에서 include하며 사용가능 -->
+	<sql id="searchSQL">
+	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+
+
+  <if test="searchType !=null and searchWord!=null and searchType == 'id'">
+    upper(mem_id) like '%' ||upper(#{searchWord})|| '%'
+  </if>
+   <if test="searchType !=null and searchWord!=null and searchType == 'name'">
+     or upper(mem_name) like '%' ||upper(#{searchWord})|| '%'
+  </if>
+  
+   <if test="searchType !=null and searchWord!=null and searchType == 'id+name'">
+     upper(mem_id) like '%' ||upper(#{searchWord})|| '%'
+ 	or upper(mem_name) like '%' ||upper(#{searchWord})|| '%'
+   
+  </if>
+</trim>
+	
+	</sql>
+	
+	<!--  1111111111111111111111111111111111 -->
+
+<!-- 실행할 SQL문과 동일한 이름의 엘리먼트를 사용하여 SQL문을 등록 -->
+<!-- SQL문의 고유한 이름을 id속성에 저장 -->
+<!-- 보통SQL문을 실행할 때 사용할 인터페이스의 메서드 이름과 동일하게 설정 -->
+<!-- 실행결과 레코드 1개를 담을 자바객체의 클래스명을  resultType(MemberMap)속성에 저장 -->
+<!--   <select id="selectMemberList" resultMap="MemberMap"> -->
+  <select id="selectMemberList" resultType="MemberVo" parameterType="kr.ac.kopo.comm.SearchInfo">
+
+<!-- 		SELECT mem_id as memId, mem_pass as memPass, mem_name as memName, mem_point as memPoint FROM MEMBER -->
+		SELECT mem_id,MEM_PASS,MEM_NAME,MEM_POINT,rnum
+FROM(SELECT mem_id,MEM_PASS,MEM_NAME,MEM_POINT,ROWNUM rnum
+ FROM (SELECT mem_id,MEM_PASS,MEM_NAME,MEM_POINT
+ FROM MEMBER  
+<!--  1111111111111111111111111111111111 -->
+ <include refid="searchSQL"></include>
+<!--  1111111111111111111111111111111111 -->
+ ORDER by mem_name desc)
+ )
+ <![CDATA[ 
+ where #{firstRecordIndex} <=rnum and rnum<=#{lastRecordIndex}  ]]>
+  </select>
+  
+<!--   //실행에 필요한 값을 받는 경우에는, 받을 값의 타입을 parameterType속성에 저장 -->
+  <select id="selectMember" parameterType="String" resultType="MemberVo">
+  SELECT mem_id, mem_pass, mem_name, mem_point FROM member where mem_id= #{memId}
+  </select>
+  
+<!--   파라미터로 받은 객체의 속성(변수)값을 SQL문에 주입하기 위해서 #{변수명}을 사용 -->
+  <insert id="insertMember" parameterType="MemberVo">
+  INSERT into MEMBER (mem_id, mem_pass, mem_name, mem_point) values(#{memId},#{memPass},#{memName},#{memPoint})
+  
+ 
+  </insert>
+  
+  <update id="updateMember" parameterType="MemberVo">
+  UPDATE member set mem_name =#{memName}, mem_point =#{memPoint} where mem_id = #{memId}
+  </update>
+  
+  
+<!--   파라미터 타입이 단일값을 갖는 경우(String,Integer,...)에는 -->
+<!--    #{}의 이름은 무엇을 사용하든 상관없음   -->
+<delete id="deleteMember" parameterType="String">
+  
+  DELETE  FROM MEMBER WHERE mem_id=#{memId}
+  </delete>
+  
+  <select id="selectLoginMember" parameterType="MemberVo" resultType="MemberVo">
+  SELECT mem_id, mem_pass, mem_name, mem_point FROM MEMBER 
+   where mem_id=#{memId} and mem_pass=#{memPass}
+  </select>
+  
+    <select id="selectCount" resultType="int" parameterType="kr.ac.kopo.comm.SearchInfo">
+  SELECT count(*) FROM member
+  
+  <!--  1111111111111111111111111111111111 -->
+ <include refid="searchSQL"></include>
+<!--  1111111111111111111111111111111111 -->
+  </select>
+
+</mapper>
+

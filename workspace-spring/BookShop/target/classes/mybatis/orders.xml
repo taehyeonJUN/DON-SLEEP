@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orders">
+
+<!-- sql쿼리는 내부적으로 조각으로 사용할때, 직접 불러올 수 없음  -->
+	<sql id="search">
+		select orders.*,customer.name name, book.bookname bookname
+		from orders
+		JOIN customer ON orders.custid=customer.custid
+		JOIN book ON orders.bookid=book.bookid
+		ORDER BY orderid DESC
+	</sql>
+
+	<select id="list" resultType="Orders">
+		SELECT * FROM
+			(select rownum rn, sub.* from
+			((<include refid="search"></include>)) sub)
+		<![CDATA[
+		where rn>((#{page}-1) * #{perPage})and rn<=(#{page} * #{perPage})
+		]]>
+	</select>
+
+	<insert id="add">
+		INSERT INTO orders
+		VALUES (#{orderid}, #{custid}, #{bookid}, #{saleprice},#{orderdate})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM orders
+		WHERE orderid=#{orderid}
+	</delete>
+
+	<update id="update">
+		UPDATE orders
+		SET custid=#{custid}, bookid=#{bookid}, saleprice=#{saleprice},orderdate=#{orderdate}
+		WHERE orderid=#{orderid} 
+	</update>
+
+	<select id="item" resultType="Orders">
+		SELECT * FROM orders
+		WHERE
+		orderid=#{orderid}
+	</select>
+	<select id="total" resultType="Integer">
+		SELECT COUNT(*) FROM
+			(<include refid="search"></include>)
+	</select>
+
+
+</mapper>

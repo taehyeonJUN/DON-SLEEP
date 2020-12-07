@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --text-color: #000000;
+    --backround-color: #f0f4f5;
+    --accent-color: goldenrod;
+}
+
+body {
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+li {
+    list-style: none;
+}
+
+#navbar {
+   background: var(--backround-color);
+   width: 100%;
+   position: fixed;
+   top: 0;
+   z-index: 10;
+   border-bottom: 1.5px solid #d3d3d3;
+   
+}
+.navbar__wrap {
+    background-color: var(--backround-color);
+    max-width: 1100px;
+    /* width: 70%; */
+    margin: 0 auto;
+    display: flex;
+    z-index: 10;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    height: 72px;
+}
+
+.navbar__logo {
+    font-size: 30px;
+    font-family: 'Lobster', cursive;
+}
+
+.navbar__logo img {
+    width: 30px;
+    padding-top: 5px;
+    
+}
+
+.navbar__logo a:hover {
+    /* background-color: #263343; */
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.navbar__menu__icon {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    
+}
+
+.navbar__menu__icon li a{
+    padding: 8px 12px;
+    font-size: 30px;
+    color: var(--accent-color);
+    margin-left: 10px;
+}
+
+.navbar__menu__icon li a:hover {
+    /* background-color: ivory; */
+    border-radius: 10px;
+    cursor: pointer;
+}
+.navbar__menu__text {
+    display: none;
+     
+ }
+ 
+ .navbar__toogleBtn {
+     display: none;
+     position: absolute;
+     top: 8px;
+     right: 35px;
+     color: var(--accent-color);
+     font-size: 25px;
+ }
+ /* 메인 시작 */
+.main-container {
+    width: 100%;
+    /* background: gold; */
+}
+
+.main-wrap {
+    max-width: 1100px; 
+    margin: 0 auto;
+    /* background: darksalmon; */
+    line-height: 35px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.info-head {
+    margin-top: 50px;
+    
+}
+
+.basic-info {
+    
+    
+    margin: 0 auto;
+}
+
+.foot {
+    margin-top: 50px;
+    text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    #navbar {
+        height: 72px;
+        
+    }
+    .navbar__logo{
+        padding: 13px 0 0 35px;
+        
+    }
+
+    .navbar__wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        
+    }
+
+    .navbar__menu__icon {
+        display: none;
+        
+        
+    }
+
+    .navbar__menu__icon li {
+        width: 100%;
+        text-align: center;
+    }
+    .navbar__menu__text {
+        display: none;
+       flex-direction: column;
+       align-items: center;
+       width: 100%;
+       margin-left: -40px;
+       font-size: 24px;
+    }
+
+    .navbar__toogleBtn {
+        display: block;
+        padding-top: 8px;
+    }
+
+    .navbar__menu__text.active {
+       display: flex;
+       
+    }   
+}

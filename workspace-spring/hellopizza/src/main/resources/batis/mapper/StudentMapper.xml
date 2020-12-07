@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hi.pizza.world.student.StudentDao">
+ 
+  <select id="selectStudentList"
+	resultType="hi.pizza.world.student.StudentVo">
+	SELECT stu_no as StuNo, stu_name as StuName, stu_score as StuScore FROM student
+</select>
+
+<!-- 	오류나면 parameterType String으로 변경해보기  -->
+	<select id="selectStudent" parameterType="String"
+		resultType="hi.pizza.world.student.StudentVo">
+		SELECT stu_no as StuNo, stu_name as StuName, stu_score as StuScore 
+		FROM student where stu_no=#{stuNo}
+	</select>
+
+	<insert id="insertStudent"
+		parameterType="hi.pizza.world.student.StudentVo">
+		INSERT INTO student (stu_no, stu_name, stu_score)
+		values(#{stuNo},#{stuName},#{stuScore})
+	</insert>
+
+	<update id="updateStudent"
+		parameterType="hi.pizza.world.student.StudentVo">
+		UPDATE student set stu_name =#{stuName}, stu_score =#{stuScore} where stu_no =#{stuNo}
+	</update>
+
+<!-- 	오류나면 parameterType String으로 변경해보기  -->
+	<delete id="deleteStudent" parameterType="String">
+		DELETE FROM student WHERE stu_no=#{stuNo}
+	</delete>
+
+	<select id="selectLoginStudent"
+		parameterType="hi.pizza.world.student.StudentVo"
+		resultType="hi.pizza.world.student.StudentVo">
+		SELECT stu_no as StuNo, stu_name as StuName, stu_score as StuScore FROM student
+		WHERE stu_no = #{stuNo} and stu_name = #{stuName}
+	</select>  
+  
+  
+</mapper>

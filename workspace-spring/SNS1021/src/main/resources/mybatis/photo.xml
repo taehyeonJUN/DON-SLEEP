@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="photo">
+
+	<insert id="addPhoto" parameterType="Photo">
+		INSERT into Photo(PHO_NO,PHO_PHOTO,PHO_POSTNO)
+		values(SE_PHOTO.NEXTVAL,#{phoPhoto},#{phoPostno})
+	</insert>
+	
+	<select id="selectPhoto" resultType="Photo" parameterType="int">
+	SELECT * FROM PHOTO WHERE PHO_POSTNO=#{phoPostno}
+	</select>
+
+</mapper>

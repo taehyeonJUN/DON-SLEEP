@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+    <link rel="stylesheet" href="../css/index_ver2.css">
+    <style>
+        body {
+            background : #f8f8f8;
+        }
+
+        #header-nav {
+            background: #fff;
+            line-height: 100px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            z-index: 10;
+        }
+
+        #header-nav .gnb {
+            margin: 0 auto;
+            width: 1200px; /*1000px*/
+            height: 120px;
+            /* float: left; */
+            
+        }
+
+        #header-nav .gnb ul {
+            width: 700px;
+            float: right;
+            /* logo 이미지와 nav menu 한 박스로 뭉치기 */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #header-nav .gnb ul li {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 700; 
+            width: 15%;
+            line-height: 100px;
+            float: right;
+        }
+
+        #header-nav .gnb img {   
+            padding-top: 15px;
+        }
+        
+        .main-write {
+            margin: 0 auto;
+            width: 1000px; /*1000px*/
+            margin-top: 300px;
+            
+            /* border-bottom: 1px solid #ddd; */
+        }
+
+        .main-write .write-area {
+            border: 1px solid #ddd;
+            height: 565px;
+            background : #f3efef;
+            border-radius: 15px;
+            
+        }
+
+        .main-write .photo-box {
+            border: 1px solid #ddd;
+            width: 500px;
+            height: 500px;
+            margin: 30px 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 490px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header-nav">
+        <div class="gnb">
+            <a href="#"><img src="../images/logo_Tongrami.png" style="height: 90px;"></a>
+            <ul>
+                <!-- <li><input class="search" type="text" placeholder="검색"></li> -->
+                <li><a href="#"><img src="../images/iconmonstr-smiley-2-240.png" alt="home" style="width: 32px; margin-top: 20px;"></a></li>
+                <li><a href="#"><img src="../images/iconmonstr-thumb-2-240.png" alt="like" style="width: 32px; margin-top: 20px;"></a></li>
+                <li><a href="#"><img src="../images/iconmonstr-email-4-240.png" alt="message" style="width: 32px; margin-top: 20px;"></a></li>
+                <li><a href="#"><img src="../images/iconmonstr-home-9-240.png" alt="home" style="width: 32px; margin-top: 20px;"></li>
+            </ul>
+            
+        </div>
+        
+    </header>
+    
+    <div class="main-write">
+        <h2></h2>
+        <div class="write-area">
+            <div class="photo-box">
+                <a href="#" target=""><h3>이미지를 선택해주세요</h3></a>
+            </div>
+            
+                    
+                </input>
+        </div>
+    </div>
+</body>
+</html>

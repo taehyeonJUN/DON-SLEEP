@@ -1,0 +1,42 @@
+.board-container{
+    border: 1px solid gray;
+    width: 700px;
+    height: 1000px;
+    margin-left: 500px;
+    margin-top: 20px;
+    display: inline-block;
+}
+.board-image-container{
+    width: 700px;
+    height: 700px;
+    margin-top: 10px;
+}
+.comment{
+  text-align: center;  
+  display: inline-block;
+}
+.comment-button{
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.others-container{
+    display: inline-block;
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 100px;
+}
+.today-follow{
+    display: inline-block;
+}
+.recommend-container{
+    margin-top: 50px;
+    border: 1px solid gray;
+}
+.sitemap-container{
+    margin-top: 50px;
+    border: 1px solid gray;
+}
+#more{
+    margin-left: 20px;
+}

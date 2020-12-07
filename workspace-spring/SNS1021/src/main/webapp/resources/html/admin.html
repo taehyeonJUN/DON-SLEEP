@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <style>
+        div{
+            display: table;
+        }
+        .box{
+           margin: 8% 7%;
+       
+            width: 40%;
+            height: 500px;
+            background-color:lightgoldenrodyellow;
+       
+            text-align: center;
+        
+        }
+        table{
+            
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            
+            margin: auto;
+        }
+
+      
+
+        .title{text-align: center;}
+
+    </style>
+</head>
+<body>
+
+<h1 class="title">회원 관리</h1>
+  <div class="box">
+    <h1>회원 가입 신청자 목록</h1>
+     
+        <table>
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>메일주소</th>
+                    <th>신청일</th>
+                    <th>승인 여부</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+            </tbody>
+            <td>a001</td>
+            <td>홍길동</td>
+            <td>www@ww.com</td>
+            <td>2020.08.21</td>
+            <td><button>가입승인</button>
+                <button>승인거부</button></td>
+                
+        </table>
+  </div> 
+   
+    <div class="box">
+        <h1>회원 목록</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>메일주소</th>
+                    <th>가입일</th>
+                    <th>탈퇴</th>
+                </tr>
+            </thead>
+                
+            <tbody>
+            </tbody>
+            <td>a001</td>
+            <td>홍길동</td>
+            <td>www@ww.com</td>
+            <td>2020.08.21</td>
+            <td><button>강제 탈퇴</button></td>
+                
+        </table>
+    </div>
+
+</body>
+</html>

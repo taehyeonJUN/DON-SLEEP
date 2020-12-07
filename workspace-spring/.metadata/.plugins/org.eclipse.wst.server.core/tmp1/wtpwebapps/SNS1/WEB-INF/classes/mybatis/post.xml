@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<select id="list" resultType="Post">
+	
+	SELECT * FROM POST, FOLLOW WHERE POST_ID=#{postId}
+	OR POST_ID=(SELECT FOLLOW_Y FROM FOLLOW where FOLLOW_I=#{postId})
+	ORDER BY POST_DATE DESC 
+
+	</select>
+	
+	<insert id="add">
+	
+	INSERT INTO post VALUES (SE_POST.NEXTVAL, #{postId},#{postContent},0,sysdate)
+	</insert>
+	
+	<delete id="delete">
+	DELETE FROM POST WHERE POST_NO = #{postNo}
+	</delete>
+	
+	<select id="postData" resultType="Post">
+	SElECT * FROM POST WHERE POST_NO = #{postNo}
+	</select>
+	
+	<update id="update">
+	UPDATE POST set POST_CONTENT = #{postContent} where post_no = #{postNo}
+	</update>
+	
+	</mapper>

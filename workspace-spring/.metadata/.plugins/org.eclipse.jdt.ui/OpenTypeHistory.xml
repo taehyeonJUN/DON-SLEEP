@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=SNS/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.sns.dao{PhotoDao.java[PhotoDao" modifiers="513" timestamp="1601959653621"/>
+<typeInfo handle="=BookShop-MySQL/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.bookshop.service{ReviewService.java[ReviewService" modifiers="513" timestamp="1603345173393"/>
+<typeInfo handle="=BookShop-MySQL/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.bookshop.dao{ReviewDao.java[ReviewDao" modifiers="513" timestamp="1603345196238"/>
+<typeInfo handle="=polyCms/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.polycms.Dao{BoardDao.java[BoardDao" modifiers="513" timestamp="1604552736776"/>
+<typeInfo handle="=PolyCMS_01/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.polycms.service{ReplyService.java[ReplyService" modifiers="513" timestamp="1604554793690"/>
+<typeInfo handle="=PolyCMS_01/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.polycms.dao{ReplyDao.java[ReplyDao" modifiers="513" timestamp="1604554966938"/>
+</typeInfoHistroy>

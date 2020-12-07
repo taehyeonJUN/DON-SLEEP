@@ -1,0 +1,217 @@
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 연습 */
+/* 라벨위치 완료 */
+
+/* userlist.html 기본 css 시작 */
+* {margin: 0; padding: 0;}
+:root {
+    --text-color: #000000;
+    --backround-color: #f0f4f5;
+    --accent-color: goldenrod;
+}
+body {margin: 0 auto; font-family: 'Nanum Gothic', sans-serif; }
+a {text-decoration: none; color: var(--text-color);}
+li {list-style: none;}
+
+/* 헤더 시작 */
+.header-contanier {background: var(--backround-color); width: 100%; top: 0; position: fixed; 
+                    border-bottom: 1.5px solid #d3d3d3; z-index: 10; height: 100px;}
+.header-wrap {background-color: var(--backround-color); max-width: 700px; margin: 0 auto; 
+                display: flex; justify-content: space-between; align-items: center; 
+                border-bottom: none; z-index: 10; position: relative; top: 15px;}
+.head {display: flex; justify-content: space-between; align-items: center;}
+.logo {padding-top: 10px; font-family: 'Lobster', cursive; font-size: 30px;} 
+.logo img{width: 30px; padding-top: 11px; cursor: pointer;}
+.logo-font {padding-top: 10px; font-family: 'Lobster', cursive; font-size: 30px; cursor: pointer;}
+.menu-btn a {position: absolute; top: 10px; right: 0px;}
+.menu-btn img {width: 40px;}
+
+
+
+/* 사이드바 위치 및 속성 */
+.menu-1 {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 70px;
+    padding-top: 210px;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.menu-1 ul li  {
+    border: 1px solid #f0f4f5;
+}
+
+.menu-1 ul li:hover {
+    background: goldenrod;
+}
+
+ /* 햄버거 버튼 */
+input[id="menuicon"] {display: none;}
+/* 햄버거 버튼 위치 */
+input[id="menuicon"] + label {
+    display: block;
+    width: 40px; /* 햄버거 가로길이 */
+    height: 20px; /* 햄버거 세로길이 */
+    position: fixed;
+    position: absolute; /* 햄버거 head-wrap : relative 이용해서 head-wrap 박스 안에 위치 고정 */
+    right: 0; /* fixed 위치값 */
+    top: calc(50% - 25px); /* fixed 위치값 */
+    top: 25px; 
+    transition: all .35s;
+    cursor: pointer;
+}
+input[id="menuicon"]:checked + label {
+    z-index: 2;
+    top: 25px; /* checked 후 햄버거 버튼 위치값 */
+}
+
+input[id="menuicon"] + label span {
+    /* 햄버거 꾸미기 */
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 30px;
+    background: #000000;
+    transition: all .35s;
+}
+input[id="menuicon"] + label span:nth-child(1){
+    top: 0;
+}
+input[id="menuicon"] + label span:nth-child(2){
+    top: 50%;
+    transform: translateY(-50%); /* Y축 이동 */
+}
+input[id="menuicon"] + label span:nth-child(3){
+    bottom: 0;
+}
+
+input[id="menuicon"]:checked + label span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg); /*rotate : 요소 회전 deg : 각도 */
+}
+input[id="menuicon"]:checked + label span:nth-child(2) {
+    opacity: 0;   /*투명도*/
+}
+input[id="menuicon"]:checked + label span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+/* 햄버거 버튼 종료 */
+
+/* 사이드바 시작 */
+div[class="sidebar"] {
+    width: 200px;
+    height: 100%;
+    background: #dddddd;
+    position: fixed;
+    top: 0;
+    right: -301px;
+    z-index: 1;
+    transition: all .35s;
+    /* border-radius: 10% 0 0 80% ; */
+    border-left: 1px solid #000000;
+}
+input[id="menuicon"]:checked + label + div {
+    right: 0;
+    
+}
+
+
+
+
+/* 메뉴, 네비게이션 js 부분 */
+/* .nav-btn.active {display: flex;}
+.delete-btn.nav-btn.active {display: flex;} */
+
+/* 미드(헤드) 시작 */
+.mid-contaniner {width: 100%}
+.mid-wrap {max-width: 700px; margin: 0 auto; margin-top: 200px; position: relative;}
+.mid-head {text-align: center; }
+
+/* 테이블 시작 */
+table {border: none;}
+.user-table {margin: 0 auto; font-size: 12px; width: 100%; margin-top: 20px;}
+
+table.user-table { border-collapse: separate; border-spacing: 1px; text-align: center; line-height: 1.5; padding: 6px; }
+table.user-table th { padding: 1px; font-weight: bold; vertical-align: top; color: #fff; background: #ce4869 ; font-size: 13px;}
+table.user-table td { padding: 1px; vertical-align: top; border-bottom: 1px solid #ccc; background: #eee; font-size: 12px;}
+table.user-table td button {cursor: pointer;}
+table.user-table td button:hover {background: dodgerblue; font-weight: 700;}
+/* 다크 기능 및 버튼 위치 */
+body.dark {
+    background-color: #292c35;
+}
+
+body.dark h3, 
+body.dark li{
+    color: goldenrod;
+}
+body.dark #form-commentInfo  {
+    color: goldenrod;
+}
+body.dark .menu-1 li {
+    color: black;
+}
+
+body.dark .delete-btn a {
+    color: #f3f3f3;
+}
+
+body.dark .delete-btn a:hover {
+    color: goldenrod;
+}
+
+body.dark #submit {
+    color: #000000;
+}
+
+body.dark #form-commentInfo input {color: #fff;}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+    
+}
+
+.label {
+    background-color: #111111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 16px;
+    width: 40px;
+    padding: 5px;
+    border-radius: 50px;
+    position: relative;
+    transform: scale(1.5);
+    /* 버튼 자체의 위치 */
+    margin-top: 120px;
+    margin-left: 80px;
+}
+
+.ball {
+    background-color: #fff;
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+    transform: translateX(24px);
+}
+
+/* 바텀 bottom 시작 카피라이트 */
+.bottom-contaniner{width: 100%}
+.bottom-wrap{max-width: 700px; margin: 0 auto; margin-top: 150px;}
+.bottom{text-align: center;}
+.bottom h5 {color: gray; font-family: 'Nanum Gothic', sans-serif;}
